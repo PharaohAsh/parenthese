@@ -32,6 +32,9 @@ const SCORE_WEIGHTS = {
  */
 const MIN_SCORE_THRESHOLD = 30
 
+// Un seul caractère han suffit (les noms de famille chinois n'en ont souvent qu'un)
+export const isQueryTooShort = (q) => q.trim().length < (/\p{Script=Han}/u.test(q) ? 1 : 2)
+
 /**
  * Calcule le score de pertinence pour une personne
  * @param {string} query - Requête de recherche (normalisée lowercase)
@@ -42,7 +45,7 @@ function calculateScore(query, person) {
   let score = 0
   const q = query.toLowerCase().trim()
 
-  if (!q || q.length < 2) return 0
+  if (!q || isQueryTooShort(q)) return 0
 
   // Normaliser les données de la personne
   const firstName = (person.firstName || '').toLowerCase()
@@ -239,7 +242,7 @@ export function usePersonSearch(persons = []) {
 
   // Calculer les résultats de recherche avec scoring
   const results = useMemo(() => {
-    if (!query || query.trim().length < 2) {
+    if (!query || isQueryTooShort(query)) {
       return []
     }
 

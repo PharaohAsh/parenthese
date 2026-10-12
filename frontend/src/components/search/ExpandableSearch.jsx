@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Search, X } from 'lucide-react'
 import SearchResultsDropdown from './SearchResultsDropdown'
+import { isQueryTooShort } from '../../hooks/usePersonSearch.js'
 import './ExpandableSearch.css'
 import { t } from '../../i18n/index.js'
 
@@ -135,7 +136,7 @@ function ExpandableSearch({
           </div>
 
           {/* Dropdown résultats */}
-          {query.trim().length >= 2 && !resultsHidden && (
+          {!isQueryTooShort(query) && !resultsHidden && (
             <SearchResultsDropdown
               results={results}
               query={query}
