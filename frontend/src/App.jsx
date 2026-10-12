@@ -220,7 +220,7 @@ function buildContributionChangesFromDraft(draft = {}) {
   const addedPersons = Array.isArray(draft.addedPersons) ? draft.addedPersons : []
   for (const person of addedPersons) {
     if (!person || typeof person !== 'object') continue
-    if (!person.firstName || !person.lastName) continue
+    if (!person.firstName) continue
 
     // Identifiant provisoire : le serveur le remplace par le vrai id pour créer les liens
     const ref = typeof person.ref === 'string' && person.ref.startsWith('tmp:') ? person.ref : null
@@ -231,7 +231,7 @@ function buildContributionChangesFromDraft(draft = {}) {
       after: {
         ...(ref ? { ref } : {}),
         firstName: String(person.firstName).trim(),
-        lastName: String(person.lastName).trim(),
+        lastName: String(person.lastName ?? '').trim(),
         birthName: person.birthName ? String(person.birthName).trim() : null,
         birthDate: person.birthDate || null,
         deathDate: person.deathDate || null,
