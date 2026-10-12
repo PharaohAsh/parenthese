@@ -251,12 +251,12 @@ function normalizeSlug(input: string): string {
     .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/[^\p{L}\p{N}]+/gu, '-')
     .replace(/^-+|-+$/g, '')
 }
 
 function isValidSlug(value: string): boolean {
-  return /^[a-z0-9-]{3,64}$/.test(value)
+  return /^[\p{L}\p{N}-]{3,64}$/u.test(value)
 }
 
 async function getAdminMembership(app: FastifyInstance, userId: string, treeId: string) {

@@ -417,10 +417,10 @@ export const gedcomRoutes: FastifyPluginAsync = async (app) => {
     lines.push('0 TRLR')
 
     const content = lines.join('\r\n')
-    const filename = treeName.replace(/[^a-zA-Z0-9_\-]/g, '_') + '.ged'
+    const filename = treeName.replace(/[^\p{L}\p{N}_-]/gu, '_') + '.ged'
 
     reply.header('Content-Type', 'text/x-gedcom; charset=utf-8')
-    reply.header('Content-Disposition', `attachment; filename="${filename}"`)
+    reply.header('Content-Disposition', `attachment; filename="export.ged"; filename*=UTF-8''${encodeURIComponent(filename)}`)
     return reply.send(content)
   })
 

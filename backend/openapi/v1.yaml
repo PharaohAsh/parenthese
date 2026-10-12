@@ -77,7 +77,7 @@ components:
           type: string
         slug:
           type: string
-          pattern: '^[a-z0-9-]{3,64}$'
+          pattern: '^[\p{L}\p{N}-]{3,64}$'
         description:
           type: string
           nullable: true
@@ -95,7 +95,7 @@ components:
           type: string
         slug:
           type: string
-          pattern: '^[a-z0-9-]{3,64}$'
+          pattern: '^[\p{L}\p{N}-]{3,64}$'
         description:
           type: string
           nullable: true
