@@ -82,7 +82,7 @@ const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/
 
 const createPersonSchema = z.object({
   firstName: z.string().min(1).max(120),
-  lastName: z.string().min(1).max(120),
+  lastName: z.string().max(120),
   birthName: z.string().max(120).optional().nullable(),
   birthDate: z.string().regex(isoDateRegex).optional().nullable(),
   deathDate: z.string().regex(isoDateRegex).optional().nullable(),
@@ -97,7 +97,7 @@ const createPersonSchema = z.object({
 const patchPersonSchema = z
   .object({
     firstName: z.string().min(1).max(120).optional(),
-    lastName: z.string().min(1).max(120).optional(),
+    lastName: z.string().max(120).optional(),
     birthName: z.string().max(120).optional().nullable(),
     birthDate: z.string().regex(isoDateRegex).optional().nullable(),
     deathDate: z.string().regex(isoDateRegex).optional().nullable(),
