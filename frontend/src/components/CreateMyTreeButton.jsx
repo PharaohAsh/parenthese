@@ -8,7 +8,7 @@ function normalizeSlug(input) {
     .toLowerCase()
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^\p{L}\p{N}]+/gu, '-')
+    .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
 }
 
@@ -18,7 +18,7 @@ const CreateMyTreeButton = ({ onCreateTree, loading }) => {
   const [error, setError] = useState('')
 
   const slug = useMemo(() => normalizeSlug(name.trim()), [name])
-  const canSubmit = name.trim().length >= 2 && slug.length >= 3 && !loading
+  const canSubmit = name.trim().length >= 2 && !loading
 
   const handleOpen = () => {
     setError('')
